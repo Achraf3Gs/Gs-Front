@@ -37,9 +37,14 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.js"
+            ],
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {
@@ -109,5 +114,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "3fc9ebe7-c0d6-4aad-8532-970820459bc9"
   }
 }
