@@ -1,0 +1,81 @@
+<div class="col">
+    <div class="row m-3">
+      <div class="col-md-8 p-0">
+        <h1>Commandes {{origin}}s</h1>
+      </div>
+      <div class="col-md-4 text-right">
+        <app-boutton-action
+        [isImporterVisible]="false"
+        (clickEvent)="nouvelleCommande()"
+        ></app-boutton-action>
+      </div>
+    </div>
+<!------------------------------------->
+    
+    <div class="accordion " id="accordionExample">
+      <div class="accordion-item mb-2">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+           data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          
+            <app-detail-cmd-clt-frs></app-detail-cmd-clt-frs> 
+       
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse mb-2" 
+        data-bs-parent="#accordionExample" style="max-height: 300px; overflow-y: scroll;">
+          <div class="accordion-body">
+           
+              <app-detail-cmd></app-detail-cmd>
+              <app-detail-cmd></app-detail-cmd>
+              <app-detail-cmd></app-detail-cmd>
+              <app-detail-cmd></app-detail-cmd>
+         </div>
+        </div>
+        <div class="footer p-2 background-grey">
+            <div class="row">
+                <div class="col-md-6 text-left"><h5>12 articles commandes </h5> </div>
+                <div class="col-md-6 text-right"> <h5>Totales commandes 123,69</h5> </div>
+            </div>
+          </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+           data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+           
+           <app-detail-cmd-clt-frs></app-detail-cmd-clt-frs>  
+              
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse mb-2"
+         data-bs-parent="#accordionExample" style="max-height: 300px; overflow-y: scroll;">
+          <div class="accordion-body">
+            
+                
+            <app-detail-cmd></app-detail-cmd>
+            <app-detail-cmd></app-detail-cmd>
+            <app-detail-cmd></app-detail-cmd>
+            <app-detail-cmd></app-detail-cmd>
+          </div>
+        </div>
+        <div class="footer p-2 background-grey">
+            <div class="row">
+                <div class="col-md-6 text-left"><h5>12 articles commandes </h5> </div>
+                <div class="col-md-6 text-right"> <h5>Totales commandes 123,69</h5> </div>
+            </div>
+          </div>
+      </div>
+  
+</div>
+
+
+
+    <!---------------Pagination-------------->
+  <div class="row m-3 mb-3 ">
+    <div class="col-md-12 text-center">
+      <app-pagination></app-pagination>
+    </div>
+  </div>
+</div>
+  

@@ -45,8 +45,8 @@ export class MenuComponent implements OnInit{
         {
           id: '22',
           titre: 'Mouvements du stock',
-          icon: 'fa-solid fa-cubes',
-          url: ''
+          icon: 'fa-brands fa-stack-overflow',
+          url: 'mvtstk'
         }
       ]
     },
@@ -60,13 +60,13 @@ export class MenuComponent implements OnInit{
           id: '31',
           titre: 'Clients',
           icon: 'fa-solid fa-users',
-          url: ''
+          url: 'clients'
         },
         {
           id: '32',
           titre: 'Commandes clients',
           icon: 'fa-solid fa-cart-shopping',
-          url: ''
+          url: 'commandesclient'
         }
       ]
     },
@@ -80,13 +80,13 @@ export class MenuComponent implements OnInit{
           id: '41',
           titre: 'Fournisseurs',
           icon: 'fa-solid fa-users',
-          url: ''
+          url: 'fournisseurs'
         },
         {
           id: '42',
           titre: 'Commandes fournisseurs',
           icon: 'fa-solid fa-truck-fast',
-          url: ''
+          url: 'commandesfournisseur'
         }
       ]
     },
@@ -100,17 +100,19 @@ export class MenuComponent implements OnInit{
           id: '51',
           titre: 'Categories',
           icon: 'fa-solid fa-screwdriver-wrench',
-          url: ''
+          url: 'categories'
         },
         {
           id: '52',
           titre: 'Utilisateurs',
           icon: 'fa-solid fa-users-gear',
-          url: ''
+          url: 'utilisateurs'
         }
       ]
     }
   ];
+
+private lastSelectedMenu: Menu|undefined;
 
  constructor(
   private router: Router
@@ -119,8 +121,13 @@ export class MenuComponent implements OnInit{
  ngOnInit(): void{
   
  }
- navigate(url?:string): void {
-  this.router.navigate([url]);
+ navigate(menu:Menu): void {
+  if (this.lastSelectedMenu){
+    this.lastSelectedMenu.active= false;
+  }
+  menu.active= true;
+  this.lastSelectedMenu= menu;
+  this.router.navigate([menu.url]);
  }
 
 }

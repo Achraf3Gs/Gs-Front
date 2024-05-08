@@ -14,8 +14,8 @@
                
                <div class="card" >
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item"*ngFor="let sousMenu of menu.sousMenu">
-                    <a href="javascript:void(0);"(click)="navigate(sousMenu.url)">
+                  <li class="list-group-item"*ngFor="let sousMenu of menu.sousMenu" [ngClass]="{'text-white bg-primary' : sousMenu.active, '':!sousMenu}">
+                    <a href="javascript:void(0);"(click)="navigate(sousMenu)" style="color:inherit;">
                       <i class="{{sousMenu.icon}}"></i>&nbsp;
                       {{sousMenu.titre}}
                     </a>
