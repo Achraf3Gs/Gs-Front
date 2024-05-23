@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateFn, GuardResult, MaybeAsync, Router, RouterStateSnapshot } from '@angular/router';
+import { UserService } from '../user/user.service';
 
 
 
@@ -7,11 +8,16 @@ import { ActivatedRouteSnapshot, CanActivate, CanActivateFn, GuardResult, MaybeA
   providedIn: 'root'
 })
  class ApplicationGuardService  {
+constructor(
+  private userService: UserService
+)
+{}
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot ): boolean {
     // Your canActivate logic here
-    return true; // Replace this with your actual logic
+    return this.userService.isUserLoggedAndAccessTokenValid(); // Replace this with your actual logic
   }
  }
 

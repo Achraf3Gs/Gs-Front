@@ -25,7 +25,7 @@ import { canActivateGuard } from './services/guard/application-guard.service';
 const routes: Routes = [
   {path:'login',component: PageLoginComponent },
   {path:'inscrire', component:PageInscriptionComponent},
-  {path:'',component:PageDashboardComponent,
+  {path:'',component:PageDashboardComponent, canActivate:[canActivateGuard],
     children:[
       {path:'statistiques',component:PagesStatistiquesComponent, canActivate:[canActivateGuard]},
       {path:'articles',component:PageArticleComponent, canActivate:[canActivateGuard]},

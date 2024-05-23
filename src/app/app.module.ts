@@ -33,7 +33,10 @@ import { DetailUtilisateurComponent } from './composantes/detail-utilisateur/det
 import { NouveauUtilisateurComponent } from './composantes/nouveau-utilisateur/nouveau-utilisateur/nouveau-utilisateur.component';
 import { ChangerMotDePasseComponent } from './pages/profil/changer-mot-de-passe/changer-mot-de-passe.component';
 import { PageProfilComponent } from './pages/profil/page-profil/page-profil.component';
-
+import { FormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { withFetch } from '@angular/common/http';
+import { InterceptorService } from './services/interceptor/interceptor.service';
 
 
 
@@ -77,11 +80,20 @@ import { PageProfilComponent } from './pages/profil/page-profil/page-profil.comp
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
-    provideClientHydration()
+    provideHttpClient(withFetch()),
+    {
+     provide: HTTP_INTERCEPTORS,
+     useClass: InterceptorService,
+     multi:true
+    }
   ],
+  
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }
