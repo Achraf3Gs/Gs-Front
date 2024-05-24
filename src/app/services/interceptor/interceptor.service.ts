@@ -17,17 +17,16 @@ export class InterceptorService implements HttpInterceptor {
       console.log(`Interceptor: accessToken=${accessToken}`);
 
       // If access token exists, attach it to the request headers
-        // If access token exists, attach it to the request headers
-        if (accessToken) {
-          // Remove backslashes and directly use the token value
-          const tokenValue = accessToken.replace(/\"/g, ''); // Remove backslashes from token
-  
-          // Clone the request and append the authorization header
-          const authReq = req.clone({
-            setHeaders: {
-              'Authorization': `Bearer ${tokenValue}` // Use token value directly
-            }
-          });
+      if (accessToken) {
+        // Remove backslashes and directly use the token value
+        const tokenValue = accessToken.replace(/\"/g, ''); // Remove backslashes from token
+
+        // Clone the request and append the authorization header
+        const authReq = req.clone({
+          setHeaders: {
+            'Authorization': `Bearer ${tokenValue}` // Use token value directly
+          }
+        });
         console.log('Interceptor: Request with Authorization header', JSON.stringify(authReq));
 
         return next.handle(authReq);

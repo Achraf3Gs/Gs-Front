@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthenticationResponse } from '../../../gs-api/src/models/authentication-response';
-import { Register1$Params } from '../../../gs-api/src/fn/authentication-controller/register-1';
-import { AuthenticationControllerService } from '../../../gs-api/src/services/authentication-controller.service';
-import { UtilisateurRestService } from '../../../gs-api/src/services/utilisateur-rest.service';
 
-import { ChangerMotDePasseUtilisateurDto, UtilisateurDto } from '../../../gs-api/src/models';
+
+
 import { Observable } from 'rxjs';
 import { FindByEmail$Params } from '../../../gs-api/src/fn/utilisateur-rest/find-by-email';
+import { AuthenticationControllerService } from '../../../gs-api/src/services/authentication-controller.service';
+import { UtilisateurRestService } from '../../../gs-api/src/services/utilisateur-rest.service';
+import { Register1$Params } from '../../../gs-api/src/fn/authentication-controller/register-1';
+import { UtilisateurDto } from '../../../gs-api/src/models/utilisateur-dto';
 import { ChangerMotDePasse$Params } from '../../../gs-api/src/fn/utilisateur-rest/changer-mot-de-passe';
+
 
 
 @Injectable({

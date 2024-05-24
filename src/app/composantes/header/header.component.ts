@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
-import { UtilisateurDto } from '../../../gs-api/src/models';
+import { UtilisateurDto } from '../../../gs-api/src/models/utilisateur-dto';
+
 
 @Component({
   selector: 'app-header',

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 import { Router } from '@angular/router';
-import { Register1$Params } from '../../../gs-api/src/fn/authentication-controller/register-1';
+
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { FindByEmail$Params } from '../../../gs-api/src/fn/utilisateur-rest/find-by-email';
-import { UtilisateurDto } from '../../../gs-api/src/models';
+import { UtilisateurDto } from '../../../gs-api/src/models/utilisateur-dto';
+import { Register1$Params } from '../../../gs-api/src/fn/authentication-controller/register-1';
+
 
 @Component({
   selector: 'app-page-login',

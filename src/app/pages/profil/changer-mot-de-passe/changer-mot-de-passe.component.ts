@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CategoryRestService } from '../../../../gs-api/src/services/category-rest.service'
-import { ChangerMotDePasse$Params } from '../../../../gs-api/src/fn/utilisateur-rest/changer-mot-de-passe';
+
 import { UserService } from '../../../services/user/user.service';
+import { ChangerMotDePasse$Params } from '../../../../gs-api/src/fn/utilisateur-rest/changer-mot-de-passe';
+
 
 @Component({
   selector: 'app-changer-mot-de-passe',
@@ -30,7 +31,7 @@ export class ChangerMotDePasseComponent {
 
   ngOnInit(): void {
     if (localStorage.getItem('origin')&& localStorage.getItem('origin')==='inscription'){
-      this.ancienMotDePass="som3R@nd0mP@$$word";
+      this.ancienMotDePass="12345";
       localStorage.removeItem('origin');
     }
   }
