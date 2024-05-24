@@ -2,15 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { EntrepriseDto } from '../../../gs-api/src/models/entreprise-dto';
 
 ;
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { EntrepriseService } from '../../services/entreprise/entreprise.service';
-import { AdresseDto, UtilisateurDto } from '../../../gs-api/src/models';
+
 import { UserService } from '../../services/user/user.service';
 import { response } from 'express';
 import { Router } from '@angular/router';
+
+import { FindByEmail$Params } from '../../../gs-api/src/fn/utilisateur-rest/find-by-email';
 import { Register1$Params } from '../../../gs-api/src/fn/authentication-controller/register-1';
 import { Save3$Params } from '../../../gs-api/src/fn/entreprise-rest/save-3';
-import { FindByEmail$Params } from '../../../gs-api/src/fn/utilisateur-rest/find-by-email';
+import { AdresseDto } from '../../../gs-api/src/models/adresse-dto';
+import { UtilisateurDto } from '../../../gs-api/src/models/utilisateur-dto';
 
 @Component({
   selector: 'app-page-inscription',
@@ -50,7 +53,8 @@ adresse:AdresseDto={
 };
 userReceived: UtilisateurDto = {};
 errorMessage: Array<string>=[];
-
+errorMessage1 = '';
+accessToken = '';
   constructor(
     private  entrepriseService: EntrepriseService,
     private userService: UserService,
@@ -93,53 +97,101 @@ errorMessage: Array<string>=[];
   }
 
   connectEnteprise():void{
-    const authenticationRequest:  Register1$Params={
-      body: {
-        email: this.entrepriseDto.body.email,
-        password: '12345',
+    
+     this.authenticationRequest.body.email =this.entrepriseDto.body.email || '';
+     this.authenticationRequest.body.password='12345';
+     this.emailParam.email = this.authenticationRequest.body.email || "";
+     console.log('authenticationRequest:',this.authenticationRequest);
+     this.userService.login(this.authenticationRequest).subscribe({
+      next: (response: HttpResponse<any>) => {
+        console.log('Login Response:', response);
+        this.handleResponse(response);
+      },
+      error: (error: HttpErrorResponse) => {
+        this.handleError(error);
       }
-     }
-     this.emailParam.email = authenticationRequest.body.email || "";
-     console.log(authenticationRequest);
-     this.userService.login(authenticationRequest)
-     .subscribe
-     ({
-      next: (data: any) => {
-        this.userService.setAccessToken(data);
-        this.userService.getUserByEmail(this.emailParam).subscribe({
-          next: (user: UtilisateurDto) => {
-            console.log('Received user:', user);
-            if (user instanceof Blob) {
-              const reader = new FileReader();
-              reader.onload = () => {
-                try {
-                  const responseBody = JSON.parse(reader.result as string);
-                  console.log('Response Body:', responseBody);
-                  this.userReceived = responseBody;
-                  //this.userService.setConnectedUser(responseBody)
-                  localStorage.setItem('connectedUser', JSON.stringify(this.userReceived));
-                  console.log('Received user:', this.userReceived);
-                } catch (e) {
-                  console.error('Error parsing response body:', e);
-                }
-              };
-              reader.readAsText(user);
-            } else {
-              this.userReceived = user;
+    });
+  }
+
+  private handleResponse(response: HttpResponse<any>): void {
+    if (response.body instanceof Blob) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const responseBody = JSON.parse(reader.result as string);
+          console.log('Response Body:', responseBody);
+          this.accessToken = responseBody.token;
+          console.log('insideHandle:', this.accessToken);
+          this.userService.setAccessToken(this.accessToken);
+          //localStorage.setItem('accessToken', this.accessToken);
+          this.router.navigate(['']);
+          this.getUserByEmail();
+        } catch (e) {
+          console.error('Error parsing response body:', e);
+          this.errorMessage1 = 'Error parsing response body.';
+        }
+      };
+      reader.readAsText(response.body);
+    } else {
+      console.error('Unexpected response format:', response);
+      this.errorMessage1 = 'Unexpected response format.';
+    }
+  }
+
+  getUserByEmail(): void {
+    this.userService.getUserByEmail(this.emailParam).subscribe({
+      next: (user: UtilisateurDto) => {
+        console.log('Received user:', user);
+        if (user instanceof Blob) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            try {
+              const responseBody = JSON.parse(reader.result as string);
+              console.log('Response Body:', responseBody);
+              this.userReceived = responseBody;
+              //this.userService.setConnectedUser(responseBody)
               localStorage.setItem('connectedUser', JSON.stringify(this.userReceived));
+              console.log('Received user:', this.userReceived);
+            } catch (e) {
+              console.error('Error parsing response body:', e);
             }
-          }
-        })
-      
-        
-
-
-        localStorage.setItem('origin','inscription');
-        // Optionally, navigate to another route after successful login
-        this.router.navigate(['changermotdepasse']); // Example route
+          };
+          reader.readAsText(user);
+        } else {
+          this.userReceived = user;
+          localStorage.setItem('connectedUser', JSON.stringify(this.userReceived));
+        }
+      },
+      error: (error: HttpErrorResponse) => {
+        this.handleError(error);
       }
-     
-  });
-}
+    });
 
-}
+    localStorage.setItem('origin','inscription');
+    // Optionally, navigate to another route after successful login
+    this.router.navigate(['changermotdepasse']); // Example route
+  }
+
+  private handleError(error: HttpErrorResponse): void {
+    console.error('Error occurred:', error);
+    if (error.error instanceof Blob && error.error.type === 'application/json') {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const responseBody = reader.result as string;
+        try {
+          const errorResponse = JSON.parse(responseBody);
+          this.errorMessage = errorResponse.message;
+        } catch (e) {
+          this.errorMessage1 = 'Error parsing error response.';
+        }
+      };
+      reader.readAsText(error.error);
+    } else {
+      this.errorMessage1 = 'An unknown error occurred.';
+    }
+  }
+
+}   
+
+
+       
