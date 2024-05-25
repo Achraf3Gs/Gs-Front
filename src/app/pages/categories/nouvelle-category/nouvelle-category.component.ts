@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CategoryDto } from '../../../../gs-api/src/models/category-dto';
+import { CategoryRestService } from '../../../../gs-api/src/services';
+import { Save5$Params } from '../../../../gs-api/src/fn/category-rest/save-5';
+import { HttpErrorResponse } from '@angular/common/http';
+import { CategoryService } from '../../../services/category/category.service';
 
 @Component({
   selector: 'app-nouvelle-category',
@@ -8,8 +13,19 @@ import { Router } from '@angular/router';
 })
 export class NouvelleCategoryComponent {
 
+  categoryDto: Save5$Params= {
+    body: {
+      code: '',
+      designation: '',
+      id: 0,
+      idEntreprise:0
+    }
+  }
+  errorMessage: Array<string>=[];
+  
   constructor(
-    private router: Router
+    private router: Router,
+    private categoryService: CategoryService
   ){}
 
   ngOnInit(): void {
@@ -22,6 +38,40 @@ export class NouvelleCategoryComponent {
   cancelClick():void{
     
       this.router.navigate(['categories'])
-   
   }
+
+  enregisterCategory():void{
+    this.categoryService.enregistrerCategory(this.categoryDto).subscribe({
+      next: (data: any) => {
+        console.log('Category created successfully:', data);
+        this.router.navigate(['categories']);
+      },
+      error: (error: any) => {
+        console.error('Error occurred:', error);
+        if (error instanceof HttpErrorResponse && error.error instanceof Blob && error.error.type === 'application/json') {
+            // Parse the error response as JSON
+            const reader = new FileReader();
+            reader.onload = () => {
+                const errorResponse = JSON.parse(reader.result as string);
+                console.log('Error Response:', errorResponse);
+                
+                // Now you can access properties like errorResponse.httpCode, errorResponse.code, etc.
+                const errorMessage =  errorResponse.errors;
+                console.error(errorMessage);
+                this.errorMessage = errorMessage;
+            };
+            reader.readAsText(error.error);
+        } else {
+            const errorMessage = ['An unknown error occurred.'];
+            console.error(errorMessage);
+            this.errorMessage = errorMessage;
+        }
+    }
+    });
   }
+  
+  }
+
+
+
+  

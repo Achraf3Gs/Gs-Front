@@ -46,8 +46,9 @@ export class ChangerMotDePasseComponent {
   }
   changerMotDePassUtilisateur():void{
     this.changerMotDePasse.body.id= this.userService.getconnectedUser().id
+    console.log(this.changerMotDePasse)
     this.userService.changerMotDePass(this.changerMotDePasse).subscribe({
-      next: (data:any) => {
+      next: (data: any) => {
         this.router.navigate(['profil']);
       }
     })

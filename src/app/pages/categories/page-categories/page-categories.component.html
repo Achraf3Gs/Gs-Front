@@ -8,29 +8,18 @@
     </div>
   <div class="row">
   <div class=" col mt-1">
-    <div class="row custom-border mb-3 p-3">
+    <div class="row custom-border mb-3 p-3" *ngFor="let cat of listeCategories">
       <div class="col-md-3 custom-border-right">
-        Code Categorie
+        {{cat.code}}
       </div>
       <div class="col-md-3 ">
-         Description categorie
+        {{cat.designation}}
       </div>
     </div>
   </div>
   </div>
-  <div class="row">
-  <div class=" col mt-1 ">
-    <div class="row custom-border mb-3 p-3">
-      <div class="col-md-3 custom-border-right">
-        Code Categorie
-      </div>
-      <div class="col-md-3 ">
-         Description categorie
-      </div>
-    </div>
-  </div>
-</div>      
-  <div class="row m-3 mb-3 ">
+     
+  <div class="row m-3 mb-3 " *ngIf="listeCategories.length>0">
     <div class="col-md-12 text-center">
       <app-pagination></app-pagination>
     </div>   
