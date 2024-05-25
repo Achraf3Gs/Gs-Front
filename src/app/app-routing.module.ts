@@ -44,6 +44,7 @@ const routes: Routes = [
 
       {path:'categories', component:PageCategoriesComponent, canActivate:[canActivateGuard]},
       {path:'nouvelleCategory',component:NouvelleCategoryComponent, canActivate:[canActivateGuard]},
+      {path:'nouvelleCategory/:idCategory',component:NouvelleCategoryComponent, canActivate:[canActivateGuard]},
 
       {path:'utilisateurs', component:PageUtilisateurComponent, canActivate:[canActivateGuard]},
       {path:'nouveauutilisateur',component:NouveauUtilisateurComponent, canActivate:[canActivateGuard]},

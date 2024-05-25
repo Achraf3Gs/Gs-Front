@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryDto } from '../../../../gs-api/src/models/category-dto';
 import { CategoryRestService } from '../../../../gs-api/src/services';
 import { Save5$Params } from '../../../../gs-api/src/fn/category-rest/save-5';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CategoryService } from '../../../services/category/category.service';
+import { FindById7$Params } from '../../../../gs-api/src/fn/category-rest/find-by-id-7';
 
 @Component({
   selector: 'app-nouvelle-category',
@@ -21,15 +22,27 @@ export class NouvelleCategoryComponent {
       idEntreprise:0
     }
   }
+  IdCategori: FindById7$Params= {
+    idCategory: 0,
+}
   errorMessage: Array<string>=[];
   
   constructor(
     private router: Router,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private activatedRoute: ActivatedRoute
   ){}
 
   ngOnInit(): void {
     
+    this.IdCategori.idCategory=this.activatedRoute.snapshot.params['idCategory'];
+      console.log('Idcategory',this.IdCategori)
+      if(this.IdCategori){
+        this.categoryService.findById(this.IdCategori).subscribe(cat=>{
+          this.categoryDto=cat;
+        })
+      }
+   
   }
 
   saveClick():void{
