@@ -61,26 +61,28 @@ export class NouvelleCategoryComponent {
       },
       error: (error: any) => {
         console.error('Error occurred:', error);
-        if (error instanceof HttpErrorResponse && error.error instanceof Blob && error.error.type === 'application/json') {
-            // Parse the error response as JSON
-            const reader = new FileReader();
-            reader.onload = () => {
-                const errorResponse = JSON.parse(reader.result as string);
-                console.log('Error Response:', errorResponse);
-                
-                // Now you can access properties like errorResponse.httpCode, errorResponse.code, etc.
-                const errorMessage =  errorResponse.errors;
-                console.error(errorMessage);
-                this.errorMessage = errorMessage;
-            };
-            reader.readAsText(error.error);
-        } else {
-            const errorMessage = ['An unknown error occurred.'];
-            console.error(errorMessage);
-            this.errorMessage = errorMessage;
-        }
+        this.ErrorHandle(error)
     }
     });
+  }
+  ErrorHandle(error: any): void {
+    console.error('Error occurred:', error);
+    if (error instanceof HttpErrorResponse) {
+      try {
+        const errorResponse = error.error;
+        console.log('Error Response:', errorResponse);
+  
+        if (errorResponse.errors && Array.isArray(errorResponse.errors)) {
+          this.errorMessage = errorResponse.errors;
+        } else {
+          this.errorMessage = ['An unknown error occurred.'];
+        }
+      } catch (e) {
+        this.errorMessage = ['An unknown error occurred.'];
+      }
+    } else {
+      this.errorMessage = ['An unknown error occurred.'];
+    }
   }
   
   }

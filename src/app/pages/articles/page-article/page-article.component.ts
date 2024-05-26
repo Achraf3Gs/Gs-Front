@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ArticleService } from '../../../services/artice/article.service';
+import { ArticleDto } from '../../../../gs-api/src/models';
 
 @Component({
   selector: 'app-page-article',
@@ -8,9 +10,10 @@ import { Router } from '@angular/router';
 })
 export class PageArticleComponent implements OnInit{
 
-  
+  listeArticles:Array<ArticleDto>=[]
   constructor(
-    private router:Router
+    private router:Router,
+    private articleService: ArticleService
   ){}
 
   ngOnInit(): void {
@@ -20,4 +23,8 @@ export class PageArticleComponent implements OnInit{
   nouvelArticle():void{
   this.router.navigate(['nouvelarticle']);
   }
+
+  findAllArticles():void{
+}
+
 }
