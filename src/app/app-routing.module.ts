@@ -30,15 +30,18 @@ const routes: Routes = [
       {path:'statistiques',component:PagesStatistiquesComponent, canActivate:[canActivateGuard]},
       {path:'articles',component:PageArticleComponent, canActivate:[canActivateGuard]},
       {path:'nouvelarticle',component:NouvelArticleComponent, canActivate:[canActivateGuard]},
+      {path:'nouvelleArticle/:idArticle',component:NouvelArticleComponent, canActivate:[canActivateGuard]},
       {path:'mvtstk',component:PageMvtstkComponent, canActivate:[canActivateGuard]},
 
       {path:'clients',component:PageClientComponent, canActivate:[canActivateGuard]},
       {path:'nouveauclient',component:NouveauCltFrsComponent, data:{origin:'client'}, canActivate:[canActivateGuard]},
+      {path:'nouveauclient/:idClient',component:NouveauCltFrsComponent, data:{origin:'client'}, canActivate:[canActivateGuard]},
       {path:'commandesclient',component:PageCmdCltFrsComponent, data:{origin:'client'}, canActivate:[canActivateGuard]},
       {path:'nouvellecommandeclt',component:NouvelleCmdCltFrsComponent, data:{origin:'client'}, canActivate:[canActivateGuard]},
 
       {path:'fournisseurs',component:PageFournisseurComponent, canActivate:[canActivateGuard]},
       {path:'nouveaufournisseur',component:NouveauCltFrsComponent, data:{origin:'fournisseur'}, canActivate:[canActivateGuard]},
+      {path:'nouveaufournisseur/:idFournisseur',component:NouveauCltFrsComponent, data:{origin:'fournisseur'}, canActivate:[canActivateGuard]},
       {path:'commandesfournisseur',component:PageCmdCltFrsComponent, data:{origin:'fournisseur'}, canActivate:[canActivateGuard]},
       {path:'nouvellecommandefr',component:NouvelleCmdCltFrsComponent, data:{origin:'fournisseur'}, canActivate:[canActivateGuard]},
 

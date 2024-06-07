@@ -8,10 +8,10 @@
         (clickEvent)="nouveauFournisseur()"></app-boutton-action>
       </div>
       <div class=" col m-3">
-         <app-detail-frs-clt></app-detail-frs-clt>
-         <app-detail-frs-clt></app-detail-frs-clt>
-         <app-detail-frs-clt></app-detail-frs-clt>
-         <app-detail-frs-clt></app-detail-frs-clt>
+         
+         <app-detail-clt-frs *ngFor ="let fournisseur of listeFournisseurs"
+         [clientFournisseur]="fournisseur"
+         [origin]="'fournisseur'"></app-detail-clt-frs>
       </div>
       <div class="row m-3 mb-3 ">
         <div class="col-md-12 text-center">

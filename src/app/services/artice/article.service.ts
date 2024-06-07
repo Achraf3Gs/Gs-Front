@@ -7,6 +7,7 @@ import { Observable, of } from 'rxjs';
 import { ArticleDto } from '../../../gs-api/src/models/article-dto';
 import { FindById8$Params } from '../../../gs-api/src/fn/article-rest/find-by-id-8';
 import { CategoryDto } from '../../../gs-api/src/models/category-dto';
+import { Delete8$Params } from '../../../gs-api/src/fn/article-rest/delete-8';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,10 @@ categoryDto:CategoryDto={
   id: FindById8$Params= {
     idArticle: 0,
   }
+
+  IdArticle:  Delete8$Params= {
+    idArticle: 0,
+}
   constructor(
     private userService:UserService,
     private articleService: ArticleRestService
@@ -55,10 +60,20 @@ categoryDto:CategoryDto={
     return this.articleService.findAll6$Response();
   }
 
-  findArticleById(id:FindById8$Params): Observable<ArticleDto>{
+  findArticleById(id:FindById8$Params):Observable<StrictHttpResponse<ArticleDto>>{
     if(id){
-    return this.articleService.findById8(id);
+    return this.articleService.findById8$Response(id);
   }
   return of();
+  }
+
+
+  deleteArticle(IdArt?:number): Observable<StrictHttpResponse<void>>{
+    if (IdArt) {
+      this.IdArticle.idArticle = IdArt;
+      console.log("idArticleAsupprimer :", this.IdArticle);
+      return this.articleService.delete8$Response(this.IdArticle);
+    }
+    return of();
   }
 }

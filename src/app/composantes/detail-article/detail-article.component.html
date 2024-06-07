@@ -9,20 +9,20 @@
         <div class="col  ">
           <div class="row" >
             <div class="col-auto ms-md-2 color-blue"><i class="fa-solid fa-circle-info"></i></div>
-            <div class="col">Code article</div>
+            <div class="col">{{articleDto.codeArticle}}</div>
         </div>
         
             <div class="row">
                 <div class="col-auto ms-md-2 color-blue"><i class="fa-solid fa-circle-info"></i> </div>
-                <div class="col">designation</div>
+                <div class="col">{{articleDto.designation}}</div>
               </div>
               <div class="row ">
                 <div class="col-auto ms-md-2 color-blue"><i class="fa-solid fa-hand-holding-dollar"></i> </div>
-                <div class="col">Prix HT</div>
+                <div class="col">{{articleDto.prixUnitaireHt}} $</div>
               </div>
               <div class="row">
                 <div class="col-auto ms-md-2 color-blue"><i class="fa-solid fa-hand-holding-dollar"></i> </div>
-                <div class="col">Prix TTC</div>
+                <div class="col">{{articleDto.prixUnitaireTtc}} $</div>
               </div>
         </div>
     </div>
@@ -35,8 +35,8 @@
       </div>
       <div class="col-md-10">
         <div class="row">
-          <div class="col-md-12">Code categorie</div>
-          <div class="col-md-12">Description categorie</div>
+          <div class="col-md-12">{{articleDto.category?.code}}</div>
+          <div class="col-md-12">{{articleDto.category?.designation}}</div>
         </div>
       </div>
     </div>
@@ -47,11 +47,12 @@
       <div class="row">
         <div class="col-md-4">
           
-          <button type="button" class="btn btn-link btn-primary">
+          <button type="button" class="btn btn-link btn-primary" (click)="modifierArticle(articleDto.id)">
             <i class="fa-solid fa-pencil"></i>&nbsp; Modifier</button>
         </div>
         <div class="col-md-4">
-          <button type="button" class="btn  btn-link btn-danger text-danger">
+          <button type="button" class="btn  btn-link btn-danger text-danger"
+           data-bs-toggle="modal" [attr.data-bs-target]="'#ModalDeleteArticle' + articleDto.id" >
             <i class="fa-solid fa-trash-can"></i>&nbsp;Supprimer</button>
         </div>
         <div class="col-md-4">
@@ -60,4 +61,31 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal -->
+<div class="modal fade" [id]="'ModalDeleteArticle' + articleDto.id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       Etes-vous sur de vouloir Supprimer cet Article?
+      </div>
+      <div class="modal-footer">
+        <!-- "Annuler" button -->
+        <button type="button" class="btn btn-secondary" >
+          <i class="fa-solid fa-ban"></i>&nbsp;Annuler</button>
+        <!-- "Supprimer" button -->
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="ConfirmerEtSupprimerArt()">
+          <i class="fa-solid fa-trash-can"></i>&nbsp;Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 </div>

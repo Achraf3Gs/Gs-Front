@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ClientDto } from '../../../gs-api/src/models/client-dto';
+import { AdresseDto } from '../../../gs-api/src/models/adresse-dto';
 
 @Component({
   selector: 'app-nouvelle-cmd-clt-frs',
@@ -8,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class NouvelleCmdCltFrsComponent {
   origin='';
+
 
   constructor(
     private router:Router,

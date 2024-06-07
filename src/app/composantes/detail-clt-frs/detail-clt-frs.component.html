@@ -9,16 +9,16 @@
         <div class="col  ">
           <div class="row">
             <div class="col-auto ms-md-2 color-blue"><i class="fa-solid fa-circle-info"></i></div>
-            <div class="col">Nom</div>
+            <div class="col">{{clientFournisseur.nom}}</div>
         </div>
         
             <div class="row">
                 <div class="col-auto ms-md-2 color-blue"><i class="fa-solid fa-circle-info"></i> </div>
-                <div class="col">Prenom</div>
+                <div class="col">{{clientFournisseur.prenom}}</div>
               </div>
               <div class="row ">
                 <div class="col-auto ms-md-2 color-blue"><i class="fa-solid fa-phone"></i></div>
-                <div class="col">+219 98 435 789</div>
+                <div class="col">{{clientFournisseur.numTel}}</div>
               </div>
              
         </div>
@@ -29,16 +29,16 @@
         <div class="col  ">
             <div class="row">
               <div class="col-auto ms-md-2 color-blue"><i class="fa-solid fa-house"></i></div>
-              <div class="col">Adresse1 Adresse2</div>
+              <div class="col">{{clientFournisseur.adresse?.adresse1}}&nbsp;{{clientFournisseur.adresse?.adresse2}}</div>
           </div>
           
               <div class="row">
                   <div class="col-auto ms-md-2 color-blue"><i class="fa-solid fa-location-dot"></i> </div>
-                  <div class="col">3084 Sfax</div>
+                  <div class="col">{{clientFournisseur.adresse?.ville}}</div>
                 </div>
                 <div class="row ">
                   <div class="col-auto ms-md-2 color-blue"><i class="fa-solid fa-earth-africa"></i></div>
-                  <div class="col">Tunis</div>
+                  <div class="col">{{clientFournisseur.adresse?.pays}}</div>
                 </div>
                
           </div>
@@ -49,7 +49,7 @@
       <div class="row">
         <div class="col-md-4">
           
-          <button type="button" class="btn btn-link btn-primary">
+          <button type="button" class="btn btn-link btn-primary" (click)="modifierClientFournisseur()">
             <i class="fa-solid fa-pencil"></i>&nbsp; Modifier</button>
         </div>
         <div class="col-md-4">

@@ -17,24 +17,30 @@
         <form>
             <div class="row mb-3">
                 <div class="col">
-                    <input type="text" class="form-control" name="Code article" placeholder="Code article" [(ngModel)]="artictleDto.body.codeArticle"> 
+                    <input type="text" class="form-control" name="Code article" placeholder="Code article"
+                     [(ngModel)]="artictleDto.body.codeArticle"> 
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" name="Designation" placeholder="Designation" [(ngModel)]="artictleDto.body.designation"> 
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col">
-                    <input type="text" class="form-control" name="Prix-unitaire-HT" placeholder="Prix-unitaire-HT" [(ngModel)]="artictleDto.body.prixUnitaireHt"> 
-                </div>
-                <div class="col">
-                    <input type="text" class="form-control" name="Prix-unitaire-TTC" placeholder="Prix-unitaire-TTC" [(ngModel)]="artictleDto.body.prixUnitaireTtc"> 
+                    <input type="text" class="form-control" name="Designation" placeholder="Designation" 
+                    [(ngModel)]="artictleDto.body.designation"> 
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <input type="text" class="form-control" name="Taux-TVA" placeholder="Taux-TVA" [(ngModel)]="artictleDto.body.tauxTva"> 
+                    <input type="text" class="form-control" name="Prix-unitaire-HT" placeholder="Prix-unitaire-HT"
+                     (input)='calculeTTC()'
+                    [(ngModel)]="artictleDto.body.prixUnitaireHt"> 
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" name="Taux-TVA" placeholder="Taux-TVA" (input)='calculeTTC()'
+                    [(ngModel)]="artictleDto.body.tauxTva"> 
                 </div> 
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <input type="text" class="form-control" name="Prix-unitaire-TTC" placeholder="Prix-unitaire-TTC" 
+                    [(ngModel)]="artictleDto.body.prixUnitaireTtc"> 
+                </div>
                 <div class="col">
                     <select class="form-select" name="categories"  [(ngModel)]="categoryDto.id">
                         <option selected>Selectionner une categorie</option>
