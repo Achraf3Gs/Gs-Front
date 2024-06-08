@@ -7,46 +7,53 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-page-client',
   templateUrl: './page-client.component.html',
-  styleUrl: './page-client.component.scss'
+  styleUrls: ['./page-client.component.scss']
 })
-export class PageClientComponent implements OnInit{
-  listeClients:Array<ClientDto>=[]
-  errorMessage: Array<string>=[];
+export class PageClientComponent implements OnInit {
+  listeClients: ClientDto[] = [];
+  errorMessage: string[] = [];
 
   constructor(
-    private router:Router,
-    private cltFrsService:CltfrsService
-  ){}
+    private router: Router,
+    private cltFrsService: CltfrsService
+  ) {}
 
   ngOnInit(): void {
-    this.findAllClients() ;
+    this.findAllClients();
   }
 
-  findAllClients():void{
+  findAllClients(): void {
     this.cltFrsService.findAllClients().subscribe({
       next: (data: any) => {
-        console.log('liste des Clients:', data.body);
-       this.listeClients=data.body;
+        console.log('List of Clients:', data.body);
+        this.listeClients = data.body;
       },
       error: (error: any) => {
         console.error('Error occurred:', error);
-        this.ErrorHandle(error);
-        
-    }
+        this.handleError(error);
+      }
     });
   }
-  
 
-  nouveauClient():void{
-  this.router.navigate(['nouveauclient']);
+  handleSuppression(event: any): void {
+    if (event.result === 'success') {
+      this.findAllClients();
+    } else {
+      this.errorMessage = event;
+    }
   }
-  ErrorHandle(error: any): void {
+
+  nouveauClient(): void {
+    this.router.navigate(['nouveauclient']);
+  }
+
+  private handleError(error: any): void {
     console.error('Error occurred:', error);
     if (error instanceof HttpErrorResponse) {
       try {
         const errorResponse = error.error;
         console.log('Error Response:', errorResponse);
-  
+
         if (errorResponse.errors && Array.isArray(errorResponse.errors)) {
           this.errorMessage = errorResponse.errors;
         } else {
@@ -59,6 +66,4 @@ export class PageClientComponent implements OnInit{
       this.errorMessage = ['An unknown error occurred.'];
     }
   }
-
 }
-

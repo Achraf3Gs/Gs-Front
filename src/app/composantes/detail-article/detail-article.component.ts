@@ -48,9 +48,10 @@ modifierArticle(id:any):void{
           console.log('Delete successful:', res);
          // this.suppressionReuslt.emit('success');
           this.suppressionReuslt.emit({ result: 'success', articles: this.listeArticles });
+          console.log('listeArticles',this.listeArticles)
         },
         error: (error: any) => {
-          console.error('Error occurred while deleting category:', error);
+          console.error('Error occurred while deleting article:', error);
           if (error instanceof HttpErrorResponse) {
             if (error.status === 400 && error.error) {
               try {

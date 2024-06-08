@@ -70,5 +70,13 @@ export class PageFournisseurComponent implements OnInit{
       this.errorMessage = ['An unknown error occurred.'];
     }
   }
+
+  handleSuppression(event: any): void {
+    if (event.result === 'success') {
+      this.findAllFournisseurs()
+      } else {
+      this.errorMessage = event;
+    }
+  }
 }
 

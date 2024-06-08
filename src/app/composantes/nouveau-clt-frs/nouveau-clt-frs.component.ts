@@ -171,27 +171,9 @@ IdFournisseur:  FindById2$Params= {
 
   entrgistrer():void{
     if(this.origin==='client'){
-      this.cltfrsService.enregistrerClient(this.mapToClient()).subscribe({
-        next: (client: any) => {
-          console.log('Client enregistered successfully:', client);
-          this.router.navigate(['clients'])
-        },
-        error: (error: any) => {
-          this.ErrorHandle(error);
-        }
-      });
+      this.EnregistrerClient()
     }else if (this.origin==='fournisseur'){
-      this.cltfrsService.enregistrerClient(this.mapToFournisseur())
-      
-      .subscribe({
-        next: (frs: any) => {
-          console.log('Fournisseur enregistered successfully:', frs);
-          this.router.navigate(['fournisseurs'])
-        },
-        error: (error: any) => {
-          this.ErrorHandle(error);
-        }
-      });
+      this.EnregistrerFournisseur()
     }
   }
 
@@ -234,7 +216,30 @@ IdFournisseur:  FindById2$Params= {
       }
     };
   }
-
+EnregistrerClient(){
+  console.log('Origin :', this.origin)
+  this.cltfrsService.enregistrerClient(this.mapToClient()).subscribe({
+    next: (client: any) => {
+      console.log('Client enregistered successfully:', client);
+      this.router.navigate(['clients'])
+    },
+    error: (error: any) => {
+      this.ErrorHandle(error);
+    }
+  })
+}
+EnregistrerFournisseur(){
+  console.log('Origin :', this.origin)
+  this.cltfrsService.enregistrerFournisseur(this.mapToFournisseur()).subscribe({
+    next: (frs: any) => {
+      console.log('Fournisseur enregistered successfully:', frs);
+      this.router.navigate(['fournisseurs'])
+    },
+    error: (error: any) => {
+      this.ErrorHandle(error);
+    }
+  });
+}
 ErrorHandle(error: any): void {
   console.error('Error occurred:', error);
   if (error instanceof HttpErrorResponse) {

@@ -10,7 +10,8 @@
       <div class=" col m-3">
          <app-detail-clt-frs *ngFor ="let client of listeClients"
             [clientFournisseur]="client"
-            [origin]="'client'"></app-detail-clt-frs>
+            [origin]="'client'"
+            (suppressionReuslt)="handleSuppression($event)" ></app-detail-clt-frs>
          
       
       </div>

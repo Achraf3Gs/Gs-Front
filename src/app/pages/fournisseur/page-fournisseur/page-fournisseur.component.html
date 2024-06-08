@@ -11,7 +11,8 @@
          
          <app-detail-clt-frs *ngFor ="let fournisseur of listeFournisseurs"
          [clientFournisseur]="fournisseur"
-         [origin]="'fournisseur'"></app-detail-clt-frs>
+         [origin]="'fournisseur'"
+         (suppressionReuslt)="handleSuppression($event)"></app-detail-clt-frs>
       </div>
       <div class="row m-3 mb-3 ">
         <div class="col-md-12 text-center">
