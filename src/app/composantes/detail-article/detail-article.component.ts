@@ -7,38 +7,26 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-detail-article',
   templateUrl: './detail-article.component.html',
-  styleUrl: './detail-article.component.scss'
+  styleUrl: './detail-article.component.scss',
 })
-export class DetailArticleComponent implements OnInit{
-
+export class DetailArticleComponent implements OnInit {
   @Input()
-  articleDto: ArticleDto={}
- 
-@Output()
-  suppressionReuslt= new EventEmitter();
+  articleDto: ArticleDto = {};
 
+  @Output()
+  suppressionReuslt = new EventEmitter();
 
   listeArticles: Array<ArticleDto> = [];
 
-  errorMessage: Array<string>=[];
+  errorMessage: Array<string> = [];
 
-  
-constructor(
-  private router:Router,
-  private articleService : ArticleService
-){}
+  constructor(private router: Router, private articleService: ArticleService) {}
 
-ngOnInit(): void {
-  
-}
+  ngOnInit(): void {}
 
-modifierArticle(id:any):void{
-  this.router.navigate(['nouvelleArticle',id]);
-}
-
-
-
-  
+  modifierArticle(id: any): void {
+    this.router.navigate(['nouvelarticle', id]);
+  }
 
   ConfirmerEtSupprimerArt(): void {
     if (this.articleDto.id) {
@@ -46,9 +34,12 @@ modifierArticle(id:any):void{
       this.articleService.deleteArticle(this.articleDto.id).subscribe({
         next: (res: any) => {
           console.log('Delete successful:', res);
-         // this.suppressionReuslt.emit('success');
-          this.suppressionReuslt.emit({ result: 'success', articles: this.listeArticles });
-          console.log('listeArticles',this.listeArticles)
+          // this.suppressionReuslt.emit('success');
+          this.suppressionReuslt.emit({
+            result: 'success',
+            articles: this.listeArticles,
+          });
+          console.log('listeArticles', this.listeArticles);
         },
         error: (error: any) => {
           console.error('Error occurred while deleting article:', error);
@@ -57,16 +48,22 @@ modifierArticle(id:any):void{
               try {
                 const errorResponse = JSON.parse(error.error);
                 console.log('Error Response:', errorResponse);
-                const errorMessage = errorResponse.message || ['An error occurred while deleting the article.'];
+                const errorMessage = errorResponse.message || [
+                  'An error occurred while deleting the article.',
+                ];
                 console.error(errorMessage);
                 this.errorMessage = [errorMessage];
                 this.suppressionReuslt.emit(this.errorMessage);
               } catch (e) {
-                this.errorMessage = ['An unknown error occurred while parsing the error response.'];
+                this.errorMessage = [
+                  'An unknown error occurred while parsing the error response.',
+                ];
                 console.error('Error parsing response:', e);
               }
             } else {
-              const errorMessage = ['An unknown error occurred while deleting the article.'];
+              const errorMessage = [
+                'An unknown error occurred while deleting the article.',
+              ];
               console.error(errorMessage);
               this.errorMessage = errorMessage;
             }
@@ -75,14 +72,10 @@ modifierArticle(id:any):void{
             console.error(errorMessage);
             this.errorMessage = errorMessage;
           }
-        }
+        },
       });
     } else {
       console.log('Invalid SelectedArToDelete value:', this.articleDto.id);
     }
   }
-  
-
- 
- 
 }

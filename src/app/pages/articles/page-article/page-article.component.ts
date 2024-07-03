@@ -7,49 +7,40 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-page-article',
   templateUrl: './page-article.component.html',
-  styleUrl: './page-article.component.scss'
+  styleUrl: './page-article.component.scss',
 })
-export class PageArticleComponent implements OnInit{
-
-  listeArticles:Array<ArticleDto>=[]
-  errorMessage: Array<string>=[];
-  constructor(
-    private router:Router,
-    private articleService: ArticleService
-  ){}
+export class PageArticleComponent implements OnInit {
+  listeArticles: Array<ArticleDto> = [];
+  errorMessage: Array<string> = [];
+  constructor(private router: Router, private articleService: ArticleService) {}
 
   ngOnInit(): void {
-    this.findAllArticles()
-    
-  }
- 
-
-  nouvelArticle():void{
-  this.router.navigate(['nouvelarticle']);
+    this.findAllArticles();
   }
 
-  findAllArticles():void{
+  nouvelArticle(): void {
+    this.router.navigate(['nouvelarticle']);
+  }
+
+  findAllArticles(): void {
     this.articleService.findAllArticles().subscribe({
       next: (data: any) => {
         console.log('liste des Articles:', data.body);
-       this.listeArticles=data.body;
+        this.listeArticles = data.body;
       },
       error: (error: any) => {
         console.error('Error occurred:', error);
         this.ErrorHandle(error);
-        
-    }
+      },
     });
   }
   handleSuppression(event: any): void {
     if (event.result === 'success') {
-      this.findAllArticles()
-      } else {
+      this.findAllArticles();
+    } else {
       this.errorMessage = event;
     }
   }
-
-
 
   ErrorHandle(error: any): void {
     console.error('Error occurred:', error);
@@ -57,7 +48,7 @@ export class PageArticleComponent implements OnInit{
       try {
         const errorResponse = error.error;
         console.log('Error Response:', errorResponse);
-  
+
         if (errorResponse.errors && Array.isArray(errorResponse.errors)) {
           this.errorMessage = errorResponse.errors;
         } else {
@@ -71,5 +62,3 @@ export class PageArticleComponent implements OnInit{
     }
   }
 }
-
-

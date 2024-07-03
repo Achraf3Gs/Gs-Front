@@ -1,57 +1,82 @@
 <div class="row mb-1 custom-border ms-2 me-0">
   <!---images-->
   <div class="col-md-2 border-right p-2 text-center mt-1 mb-1">
-    <img src="assets/client.png" width="100px" height="100px">
-  </div>  
+    <img src="assets/client.png" width="100px" height="100px" />
+  </div>
 
-  <!--details-articles-->  
+  <!--details-articles-->
   <div class="col-md-4 border-right mt-1 mb-1">
     <div class="col">
       <div class="row">
-        <div class="col-auto ms-md-2 color-blue"><i class="fa-solid fa-circle-info"></i></div>
+        <div class="col-auto ms-md-2 color-blue">
+          <i class="fa-solid fa-circle-info"></i>
+        </div>
         <div class="col">{{ clientFournisseur.nom }}</div>
       </div>
       <div class="row">
-        <div class="col-auto ms-md-2 color-blue"><i class="fa-solid fa-circle-info"></i></div>
+        <div class="col-auto ms-md-2 color-blue">
+          <i class="fa-solid fa-circle-info"></i>
+        </div>
         <div class="col">{{ clientFournisseur.prenom }}</div>
       </div>
       <div class="row">
-        <div class="col-auto ms-md-2 color-blue"><i class="fa-solid fa-phone"></i></div>
+        <div class="col-auto ms-md-2 color-blue">
+          <i class="fa-solid fa-phone"></i>
+        </div>
         <div class="col">{{ clientFournisseur.numTel }}</div>
       </div>
     </div>
   </div>
 
-  <!--details-clientfournisseu--> 
+  <!--details-clientfournisseu-->
   <div class="col-md-3 border-right mt-1 mb-1">
     <div class="col">
       <div class="row">
-        <div class="col-auto ms-md-2 color-blue"><i class="fa-solid fa-house"></i></div>
-        <div class="col">{{ clientFournisseur.adresse?.adresse1 }}&nbsp;{{ clientFournisseur.adresse?.adresse2 }}</div>
+        <div class="col-auto ms-md-2 color-blue">
+          <i class="fa-solid fa-house"></i>
+        </div>
+        <div class="col">
+          {{ clientFournisseur.adresse?.adresse1 }}&nbsp;{{
+            clientFournisseur.adresse?.adresse2
+          }}
+        </div>
       </div>
       <div class="row">
-        <div class="col-auto ms-md-2 color-blue"><i class="fa-solid fa-location-dot"></i></div>
+        <div class="col-auto ms-md-2 color-blue">
+          <i class="fa-solid fa-location-dot"></i>
+        </div>
         <div class="col">{{ clientFournisseur.adresse?.ville }}</div>
       </div>
       <div class="row">
-        <div class="col-auto ms-md-2 color-blue"><i class="fa-solid fa-earth-africa"></i></div>
+        <div class="col-auto ms-md-2 color-blue">
+          <i class="fa-solid fa-earth-africa"></i>
+        </div>
         <div class="col">{{ clientFournisseur.adresse?.pays }}</div>
       </div>
     </div>
   </div>
 
-  <!--bouttons d'action--> 
+  <!--bouttons d'action-->
   <div class="col-md-3 mt-1 mb-1">
     <div class="row">
       <div class="col-md-4">
-        <button type="button" class="btn btn-link btn-primary" (click)="modifierClientFournisseur()">
+        <button
+          type="button"
+          class="btn btn-link btn-primary"
+          (click)="modifierClientFournisseur()"
+        >
           <i class="fa-solid fa-pencil"></i>&nbsp; Modifier
         </button>
       </div>
       <div class="col-md-4">
-        <button type="button" class="btn btn-link btn-danger text-danger"
-         data-bs-toggle="modal" [attr.data-bs-target]="'#ModalDeleteArticle' + clientFournisseur.id">
-          <i class="fa-solid fa-trash-can"></i>&nbsp;Supprimer</button>
+        <button
+          type="button"
+          class="btn btn-link btn-danger text-danger"
+          data-bs-toggle="modal"
+          [attr.data-bs-target]="'#ModalDeleteArticle' + clientFournisseur.id"
+        >
+          <i class="fa-solid fa-trash-can"></i>&nbsp;Supprimer
+        </button>
       </div>
       <div class="col-md-4">
         <button type="button" class="btn btn-link btn-primary">
@@ -62,25 +87,49 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" [id]="'ModalDeleteArticle' + clientFournisseur.id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div
+    class="modal fade"
+    [id]="'ModalDeleteArticle' + clientFournisseur.id"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Confirmation</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            Confirmation
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
           Etes-vous sur de vouloir Supprimer ce {{ origin }}?
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
             <i class="fa-solid fa-ban"></i>&nbsp;Annuler
           </button>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="ConfirmerEtSupprimerClient()">
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+            (click)="ConfirmerEtSupprimerClient()"
+          >
             <i class="fa-solid fa-trash-can"></i>&nbsp;Supprimer
           </button>
         </div>
       </div>
     </div>
-  </div>  
+  </div>
 </div>

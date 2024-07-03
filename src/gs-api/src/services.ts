@@ -1,6 +1,7 @@
 export { MvtStkRestService } from './services/mvt-stk-rest.service';
 export { VentesRestService } from './services/ventes-rest.service';
 export { UtilisateurRestService } from './services/utilisateur-rest.service';
+export { PhotoControllerService } from './services/photo-controller.service';
 export { FournisseurRestService } from './services/fournisseur-rest.service';
 export { EntrepriseRestService } from './services/entreprise-rest.service';
 export { CommandeClientRestService } from './services/commande-client-rest.service';

@@ -7,6 +7,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 import { MvtStkRestService } from './services/mvt-stk-rest.service';
 import { VentesRestService } from './services/ventes-rest.service';
 import { UtilisateurRestService } from './services/utilisateur-rest.service';
+import { PhotoControllerService } from './services/photo-controller.service';
 import { FournisseurRestService } from './services/fournisseur-rest.service';
 import { EntrepriseRestService } from './services/entreprise-rest.service';
 import { CommandeClientRestService } from './services/commande-client-rest.service';
@@ -27,6 +28,7 @@ import { AuthenticationControllerService } from './services/authentication-contr
     MvtStkRestService,
     VentesRestService,
     UtilisateurRestService,
+    PhotoControllerService,
     FournisseurRestService,
     EntrepriseRestService,
     CommandeClientRestService,

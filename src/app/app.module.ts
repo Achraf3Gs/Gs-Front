@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,7 +16,7 @@ import { PageArticleComponent } from './pages/articles/page-article/page-article
 import { DetailArticleComponent } from './composantes/detail-article/detail-article.component';
 import { PaginationComponent } from './composantes/pagination/pagination.component';
 import { BouttonActionComponent } from './composantes/boutton-action/boutton-action.component';
-import { NouvelArticleComponent } from './pages/articles/nouvel-article/nouvel-article.component';
+
 import { PageMvtstkComponent } from './pages/mvtstk/page-mvtstk/page-mvtstk.component';
 import { DetailMvtStkArticleComponent } from './composantes/detail-mvt-stk-article/detail-mvt-stk-article.component';
 import { DetailMvtStkComponent } from './composantes/detail-mvt-stk/detail-mvt-stk.component';
@@ -34,13 +37,15 @@ import { NouveauUtilisateurComponent } from './composantes/nouveau-utilisateur/n
 import { ChangerMotDePasseComponent } from './pages/profil/changer-mot-de-passe/changer-mot-de-passe.component';
 import { PageProfilComponent } from './pages/profil/page-profil/page-profil.component';
 import { FormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, provideHttpClient } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+  provideHttpClient,
+} from '@angular/common/http';
 import { withFetch } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor/interceptor.service';
-
-
-
-
+import { NouvelArticleComponent } from './pages/articles/nouvel-article/nouvel-article.component';
 
 @NgModule({
   declarations: [
@@ -75,25 +80,17 @@ import { InterceptorService } from './services/interceptor/interceptor.service';
     NouveauUtilisateurComponent,
     ChangerMotDePasseComponent,
     PageProfilComponent,
-    
-    
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [
     provideHttpClient(withFetch()),
     {
-     provide: HTTP_INTERCEPTORS,
-     useClass: InterceptorService,
-     multi:true
-    }
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true,
+    },
   ],
-  
-  
-  bootstrap: [AppComponent]
+
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

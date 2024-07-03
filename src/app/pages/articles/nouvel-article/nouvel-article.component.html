@@ -1,63 +1,128 @@
-<div class="col p-2 mb-3" >
+<div class="col p-2 mb-3">
+  <div class="col-md-12 mb-3">
+    <button
+      (click)="fileInput.click()"
+      style="background-color: transparent; border: none"
+    >
+      <img
+        [src]="
+          artictleDto.body.photo
+            ? artictleDto.body.photo
+            : 'assets/product.avif'
+        "
+        class="rounded-circle"
+        width="200px"
+        height="200px"
+      />
+      <input
+        hidden
+        type="file"
+        #fileInput
+        (change)="onfileInput(fileInput.files)"
+      />
+    </button>
+  </div>
+  <hr />
+  <div class="col-md-12">
     <div class="col-md-12 mb-3">
-        <img src="assets/product.avif" class="rounded-circle" width=200px height=200px>
+      <h2>
+        <i class="fa-solid fa-circle-info color-blue"></i>&nbsp;Information de
+        l'article
+      </h2>
     </div>
-    <hr>
     <div class="col-md-12">
-        <div class="col-md-12 mb-3">
-           <h2><i class="fa-solid fa-circle-info color-blue"></i>&nbsp;Information de l'article</h2> 
+      <div class="col p-2 mb-3">
+        <div class="alert alert-danger" *ngIf="errorMessage.length > 0">
+          <div *ngFor="let msg of errorMessage">
+            <span>{{ msg }}</span>
+          </div>
         </div>
-    <div class="col-md-12">
-        <div class="col p-2 mb-3" >
-            <div class="alert alert-danger" *ngIf="errorMessage.length>0">
-                <div *ngFor="let msg of errorMessage">
-                  <span >{{msg}}</span>
-                </div>
-              </div>
         <form>
-            <div class="row mb-3">
-                <div class="col">
-                    <input type="text" class="form-control" name="Code article" placeholder="Code article"
-                     [(ngModel)]="artictleDto.body.codeArticle"> 
-                </div>
-                <div class="col">
-                    <input type="text" class="form-control" name="Designation" placeholder="Designation" 
-                    [(ngModel)]="artictleDto.body.designation"> 
-                </div>
+          <div class="row mb-3">
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                name="Code article"
+                placeholder="Code article"
+                [(ngModel)]="artictleDto.body.codeArticle"
+              />
             </div>
-            <div class="row mb-3">
-                <div class="col">
-                    <input type="text" class="form-control" name="Prix-unitaire-HT" placeholder="Prix-unitaire-HT"
-                     (input)='calculeTTC()'
-                    [(ngModel)]="artictleDto.body.prixUnitaireHt"> 
-                </div>
-                <div class="col">
-                    <input type="text" class="form-control" name="Taux-TVA" placeholder="Taux-TVA" (input)='calculeTTC()'
-                    [(ngModel)]="artictleDto.body.tauxTva"> 
-                </div> 
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                name="Designation"
+                placeholder="Designation"
+                [(ngModel)]="artictleDto.body.designation"
+              />
             </div>
-            <div class="row mb-3">
-                <div class="col">
-                    <input type="text" class="form-control" name="Prix-unitaire-TTC" placeholder="Prix-unitaire-TTC" 
-                    [(ngModel)]="artictleDto.body.prixUnitaireTtc"> 
-                </div>
-                <div class="col">
-                    <select class="form-select" name="categories"  [(ngModel)]="categoryDto.id">
-                        <option selected>Selectionner une categorie</option>
-                        <option *ngFor="let cat of listeCategories" [value]="cat.id">{{cat.code}}-{{cat.designation}}</option>
-                      </select>
-                </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                name="Prix-unitaire-HT"
+                placeholder="Prix-unitaire-HT"
+                (input)="calculeTTC()"
+                [(ngModel)]="artictleDto.body.prixUnitaireHt"
+              />
             </div>
-        </form>   
-    </div>
-    <div class="col-md-12">
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                name="Taux-TVA"
+                placeholder="Taux-TVA"
+                (input)="calculeTTC()"
+                [(ngModel)]="artictleDto.body.tauxTva"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                name="Prix-unitaire-TTC"
+                placeholder="Prix-unitaire-TTC"
+                [(ngModel)]="artictleDto.body.prixUnitaireTtc"
+              />
+            </div>
+            <div class="col">
+              <select
+                class="form-select"
+                name="categories"
+                [(ngModel)]="categoryDto.id"
+              >
+                <option selected>Selectionner une categorie</option>
+                <option *ngFor="let cat of listeCategories" [value]="cat.id">
+                  {{ cat.code }}-{{ cat.designation }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-12">
         <div class="text-right">
-            <button type="button" class="btn btn-danger me-3" (click)="cancelClick()">
-                <i class="fa-solid fa-ban"></i>&nbsp;Annuler</button>
-            <button type="button" class="btn btn-primary"(click)="enregistrerArticle()">
-                <i class="fa-solid fa-floppy-disk" ></i>&nbsp;Enregister</button>
+          <button
+            type="button"
+            class="btn btn-danger me-3"
+            (click)="cancelClick()"
+          >
+            <i class="fa-solid fa-ban"></i>&nbsp;Annuler
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="enregistrerArticle()"
+          >
+            <i class="fa-solid fa-floppy-disk"></i>&nbsp;Enregister
+          </button>
         </div>
+      </div>
     </div>
-   
+  </div>
 </div>
- 

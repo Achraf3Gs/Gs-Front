@@ -8,6 +8,11 @@
         (clickEvent)="nouveauClient()"></app-boutton-action>
       </div>
       <div class=" col m-3">
+        <div class="row col-md-12 alert alert-danger" *ngIf="errorMessage.length>0">
+          <div *ngFor="let msg of errorMessage">
+            <span >{{msg}}</span>
+          </div>
+        </div>
          <app-detail-clt-frs *ngFor ="let client of listeClients"
             [clientFournisseur]="client"
             [origin]="'client'"
